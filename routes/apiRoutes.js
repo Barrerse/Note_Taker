@@ -7,8 +7,13 @@ const { readFromFile, readAndAppend, deleteFromFile } = require('../helpers/fsUt
 apiRoute.get('/notes', (req, res) => {
   console.log(`${req.method} received`);
   readFromFile('./db/db.json')
-    .then((data) => res.json(JSON.parse(data)))
-    .catch((err) => console.error(err));
+    .then((data) => {
+      res.json(JSON.parse(data));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json([]);
+    });
 });
 
 // POST route to add a new note to db.json
